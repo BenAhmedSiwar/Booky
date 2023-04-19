@@ -1,39 +1,47 @@
 package com.example.bookyy.ServicesImpl;
 
 import com.example.bookyy.Entites.Book;
+import com.example.bookyy.Entites.Categories;
 import com.example.bookyy.Repository.BookRepo;
-import com.example.bookyy.Services.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class BookImpl implements BookService {
-    @Autowired
-   private BookRepo repo;
+public class BookImpl  {
 
-    @Override
-    public void add(Book s) {
-        repo.save(s);
+   final private BookRepo repo;
+
+    public BookImpl(BookRepo repo) {
+        this.repo = repo;
     }
 
-    @Override
+
+    public Book add(Book s) {
+        return repo.save(s);
+    }
+
+
     public Book update(Book s) {
-        return null;
+        return repo.save(s);
     }
 
-    @Override
+
     public List<Book> getAll() {
-        return null;
+        return repo.findAll();
     }
 
-    @Override
-    public Book getById(int id) {
-        return null;
+
+    public Book getBybookId(int id) {
+        return repo.findById(id).orElse(null);
     }
 
-    @Override
+
     public void remove(int id) {
-
+                repo.deleteById(id);
+    }
+    public  List<Book> getbycat(Categories cat){
+       return repo.findBookparcategories(cat);
     }
 }
