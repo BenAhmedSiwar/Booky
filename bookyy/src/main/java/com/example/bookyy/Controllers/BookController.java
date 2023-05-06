@@ -3,7 +3,11 @@ package com.example.bookyy.Controllers;
 import com.example.bookyy.Entites.Book;
 import com.example.bookyy.Entites.Categories;
 
+import com.example.bookyy.Entites.Rating;
 import com.example.bookyy.ServicesImpl.BookImpl;
+import com.example.bookyy.ServicesImpl.RatingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +18,12 @@ public class BookController {
 
    final private BookImpl bookService;
 
+    private RatingService ratingService;
 
     public BookController(BookImpl bookService) {
         this.bookService = bookService;
     }
+
     @GetMapping("/all")
     public List<Book> affichertous()
     {
@@ -43,5 +49,8 @@ public class BookController {
     public void deletebook(@PathVariable("id") int id){
         bookService.remove(id);
     }
+
+
+
 
 }

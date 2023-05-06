@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
 import java.util.Date;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -32,11 +33,18 @@ public class Book {
     int nbrpage;
     @Enumerated(EnumType.STRING)
     LangueBook langueBook;
+
     @JsonIgnore
     @OneToOne(mappedBy = "book")
     Media media;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE )
+    private List<Rating> rating;
 
+    @ManyToOne()
+    @JoinColumn(name = "userId")
+    private User user;
 
     }
 

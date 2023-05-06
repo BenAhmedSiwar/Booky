@@ -12,4 +12,8 @@ public interface BookRepo extends JpaRepository <Book,Integer> {
 @Query(value = "select b from Book  b  where b.categories= :cat")
  List<Book> findBookparcategories(@Param("cat") Categories cat);
 
+ @Query( value = "select avg(rating) from rating where idbook=:id", nativeQuery = true)
+ double avgRateOfBook(int id);
+
+
 }
