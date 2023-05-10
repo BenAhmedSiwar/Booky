@@ -17,9 +17,6 @@ public class Mediaservice {
     }
 
 
-    public void add(Media s) {
-        repo.save(s);
-    }
 
 
     public Media update(Media s) {

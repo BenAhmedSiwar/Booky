@@ -8,6 +8,7 @@ import com.example.bookyy.Repository.BookRepo;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,12 +23,63 @@ public class BookImpl  {
 
 
     public Book add(Book s) {
+        s.setIsPublic(0);
+        s.setStatus("On Hold");
         return repo.save(s);
     }
 
 
-    public Book update(Book s) {
+    public Book update(Book s , int id) {
+        repo.deleteById(id);
         return repo.save(s);
+    }
+    public void approuveBook(int id ){
+        Book book = repo.findById(id).get();
+        book.setStatus("Approuved");
+        book.setIsPublic(1);
+        repo.save(book);
+    }
+    public void NotApprouveBook(int id ){
+        Book book = repo.findById(id).get();
+        book.setStatus("Not Approuved");
+        book.setIsPublic(2);
+        repo.save(book);
+    }
+
+
+    public List<Book> getAllApprouvedBook(){
+        List<Book> books = new ArrayList<>();
+        List<Book> booksApprouved = new ArrayList<>();
+        books =  repo.findAll();
+        for (Book book : books){
+            if(book.getIsPublic()==1){
+                booksApprouved.add(book);
+            }
+        }
+        return booksApprouved;
+    }
+
+    public List<Book> getAllNotApprouvedBook(){
+        List<Book> books = new ArrayList<>();
+        List<Book> booksNotApprouved = new ArrayList<>();
+        books =  repo.findAll();
+        for (Book book : books){
+            if(book.getIsPublic()==2){
+                booksNotApprouved.add(book);
+            }
+        }
+        return booksNotApprouved;
+    }
+   public List<Book> getAllallOnHoldBook(){
+        List<Book> books = new ArrayList<>();
+        List<Book> booksNotApprouved = new ArrayList<>();
+        books =  repo.findAll();
+        for (Book book : books){
+            if(book.getIsPublic()==0){
+                booksNotApprouved.add(book);
+            }
+        }
+        return booksNotApprouved;
     }
 
 

@@ -26,7 +26,9 @@ public class Book {
     int idbook;
     String title;
     String description;
-
+    String status;
+    int rate;
+    int isPublic;
     Date publish_date;
     @Enumerated(EnumType.STRING)
     Categories categories;
@@ -34,14 +36,14 @@ public class Book {
     @Enumerated(EnumType.STRING)
     LangueBook langueBook;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "book")
-    Media media;
+
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    Attachment attachment;
 
     @JsonIgnore
     @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE )
     private List<Rating> rating;
-
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "userId")
     private User user;

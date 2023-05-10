@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/rating")
+@CrossOrigin("*")
 public class RatingController {
 
     @Autowired

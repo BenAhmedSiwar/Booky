@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/media")
+@CrossOrigin("*")
 public class MediaController {
     final Mediaservice service;
 
@@ -32,7 +33,6 @@ public class MediaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        service.add(doc);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/files/download/")
                 .path(fileName).path("/db")
